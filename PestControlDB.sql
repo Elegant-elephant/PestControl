@@ -40,14 +40,14 @@ CREATE TABLE IF NOT EXISTS `Customer` (
 -- Tietojen vientiä ei oltu valittu.
 -- Dumping structure for taulu PestControl.CustomerVisit
 CREATE TABLE IF NOT EXISTS `CustomerVisit` (
-  `VisitId` int(11) NOT NULL AUTO_INCREMENT,
+  `CustomerVisitId` int(11) NOT NULL AUTO_INCREMENT,
   `Datetime` datetime NOT NULL,
-  `Id` int(11) NOT NULL,
+  `CustomerId` int(11) NOT NULL,
   `StreetAddress` varchar(40) NOT NULL,
-  PRIMARY KEY (`VisitId`),
-  KEY `Id` (`Id`),
+  PRIMARY KEY (`CustomerVisitId`),
+  KEY `CustomerId` (`CustomerId`),
   KEY `StreetAddress` (`StreetAddress`),
-  CONSTRAINT `CustomerVisit_ibfk_1` FOREIGN KEY (`Id`) REFERENCES `Customer` (`CustomerId`),
+  CONSTRAINT `CustomerVisit_ibfk_1` FOREIGN KEY (`CustomerId`) REFERENCES `Customer` (`CustomerId`),
   CONSTRAINT `CustomerVisit_ibfk_2` FOREIGN KEY (`StreetAddress`) REFERENCES `Address` (`StreetAddress`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -71,12 +71,12 @@ CREATE TABLE IF NOT EXISTS `Postal` (
 
 -- Tietojen vientiä ei oltu valittu.
 -- Dumping structure for taulu PestControl.Relationship
-CREATE TABLE IF NOT EXISTS `Relationship` (
-  `VisitId` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `customervisit_pest` (
+  `CustomerVisitId` int(11) NOT NULL,
   `PestId` int(11) NOT NULL,
-  PRIMARY KEY (`VisitId`,`PestId`),
+  PRIMARY KEY (`CustomerVisitId`,`PestId`),
   KEY `PestId` (`PestId`),
-  CONSTRAINT `Relationship_ibfk_1` FOREIGN KEY (`VisitId`) REFERENCES `CustomerVisit` (`VisitId`),
+  CONSTRAINT `Relationship_ibfk_1` FOREIGN KEY (`CustomerVisitId`) REFERENCES `CustomerVisit` (`CustomerVisitId`),
   CONSTRAINT `Relationship_ibfk_2` FOREIGN KEY (`PestId`) REFERENCES `Pest` (`PestId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
