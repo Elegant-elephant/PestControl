@@ -1,4 +1,4 @@
-package main;
+package orm;
 
 import java.util.Date;
 import java.util.Set;
