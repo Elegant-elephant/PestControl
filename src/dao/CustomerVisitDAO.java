@@ -27,4 +27,8 @@ public class CustomerVisitDAO extends DAO{
         q.setParameter("id", id);
         return null;
     }
+    
+    public void addCustomerVisit(CustomerVisit cv) {
+        em.persist(cv);
+    }
 }

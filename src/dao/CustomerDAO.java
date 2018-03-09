@@ -30,8 +30,6 @@ public class CustomerDAO extends DAO {
     }
     
     public void addCustomer(Customer customer){
-        em.getTransaction().begin();
         em.persist(customer);
-        em.getTransaction().commit();
     }
 }
