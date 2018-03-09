@@ -24,7 +24,7 @@ public class Main {
     static AddressDAO addressDAO = new AddressDAO(em);
     public static void main(String[] args) {
         
-        List<String> valinnat = Arrays.asList("Lisää", "Poista", "Lopeta");
+        List<String> valinnat = Arrays.asList("Lisää asiakaskäynti", "Poista asiakaskäynti", "Lopeta");
         String valinta = "";
         do {
             for (int i = 0; i < valinnat.size(); i++) {
@@ -36,6 +36,9 @@ public class Main {
             switch(valinta){
                 case ("1"):
                     newCustomerVisit();
+                    break;
+                case ("2"):
+                    deleteCustomerVisit();
                     break;
             }
             
@@ -104,6 +107,7 @@ public class Main {
             System.out.println(row[0]+": "+row[1]+" "+row[2]);
         }
         do{
+            System.out.println("Anna lisättävän asiakkaan id: ");
             input = lukija.nextLine();
             try{
                 id = Integer.parseInt(input);
@@ -181,4 +185,44 @@ public class Main {
         return parsedDate;
     }
     
+    static void deleteCustomerVisit(){
+        em.getTransaction().begin();
+        String input = "";
+        List<CustomerVisit> customerVisitList = customerVisitDAO.getVisits();
+        if(customerVisitList.size() == 0){
+            System.out.println("Asiakaskäyntejä ei ole.");
+            em.getTransaction().rollback();
+            return;
+        }
+        int id;
+        CustomerVisit cv;
+        
+        for(CustomerVisit row: customerVisitList){
+            Customer c = row.getCustomer();
+            String nimi = c.getLastname()+ " " +c.getFirstname();
+            System.out.println(row.getId() + ": " + nimi + row.getDatetime());
+        }
+        do{
+            System.out.println("Anna poistettavan asiakaskäynnin id: ");
+            input = lukija.nextLine();
+            try{
+                id = Integer.parseInt(input);
+                cv = customerVisitDAO.getVisitById(id);
+                if(cv != null){
+                    customerVisitDAO.delete(cv);
+                    em.getTransaction().commit();
+                    return;
+                } else {
+                    System.out.println("Virheellinen id");
+                }
+                
+            } catch(Exception e){
+                if(!input.equals("")){
+                   System.out.println("Virheeliinen valinta.");
+                }
+            }
+        }while(!input.equals(""));
+        em.getTransaction().rollback();
+
+    }
 }

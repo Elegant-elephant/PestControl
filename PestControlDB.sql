@@ -1,9 +1,3 @@
--- --------------------------------------------------------
--- Verkkotietokone:              10.114.32.27
--- Palvelinversio:               5.5.56-MariaDB - MariaDB Server
--- Server OS:                    Linux
--- HeidiSQL Versio:              9.5.0.5196
--- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
