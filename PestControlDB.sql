@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `Postal` (
 
 -- Tietojen vientiä ei oltu valittu.
 -- Dumping structure for taulu PestControl.Relationship
-CREATE TABLE IF NOT EXISTS `customervisit_pest` (
+CREATE TABLE IF NOT EXISTS `CustomerVisitPest` (
   `CustomerVisitId` int(11) NOT NULL,
   `PestId` int(11) NOT NULL,
   PRIMARY KEY (`CustomerVisitId`,`PestId`),
@@ -84,3 +84,4 @@ CREATE TABLE IF NOT EXISTS `customervisit_pest` (
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+customervisit_pest
