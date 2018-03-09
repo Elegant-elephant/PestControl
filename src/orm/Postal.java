@@ -6,8 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "postal")
-class Postal {
+@Table(name = "Postal")
+public class Postal {
     private String postalCode;
     private String postRegion;
     

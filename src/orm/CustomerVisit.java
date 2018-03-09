@@ -12,9 +12,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "customervisit")
+@Table(name = "CustomerVisit")
 public class CustomerVisit {
     private int id;
     private Date datetime;
@@ -30,23 +32,26 @@ public class CustomerVisit {
     }
 
     @Column(name = "Datetime")
+    @Temporal(TemporalType.TIMESTAMP)
     public Date getDatetime() {
         return datetime;
     }
 
     @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "CustomerId")
     public Customer getCustomer() {
         return customer;
     }
 
     @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "StreetAddress")
     public Address getAddress() {
         return address;
     }
     
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
-        name = "customervisit_pest",
+        name = "CustomerVisitPest",
         joinColumns=@JoinColumn(name = "CustomerVisitId", referencedColumnName = "CustomerVisitId"),
         inverseJoinColumns=@JoinColumn(name = "PestId", referencedColumnName = "PestId"))
     public Set<Pest> getPests() {

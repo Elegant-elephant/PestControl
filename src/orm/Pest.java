@@ -7,8 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "pest")
-class Pest {
+@Table(name = "Pest")
+public class Pest {
     private int pestId;
     private String name;
     private String description;

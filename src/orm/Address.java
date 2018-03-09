@@ -4,12 +4,13 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "address")
-class Address {
+@Table(name = "Address")
+public class Address {
     private String streetAddress;
     private Postal postalCode;
     
@@ -20,6 +21,7 @@ class Address {
     }
 
     @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "PostalCode")
     public Postal getPostalCode() {
         return postalCode;
     }
