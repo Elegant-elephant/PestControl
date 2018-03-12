@@ -32,4 +32,8 @@ public class CustomerDAO extends DAO {
     public void addCustomer(Customer customer){
         em.persist(customer);
     }
+    
+    public void deleteCustomer(Customer customer) {
+        em.remove(customer);
+    }
 }
