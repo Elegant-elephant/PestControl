@@ -42,6 +42,11 @@ public class Pest {
         this.description = description;
     }
     
-    
+    @Override
+    public String toString() {
+        String string = pestId + ", " + name;
+        if (description != null) string += ", " + description;
+        return string;
+    }
     
 }
