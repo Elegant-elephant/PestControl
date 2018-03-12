@@ -70,13 +70,12 @@ public class Main2 {
                         break;
                     case 2: //Etsi
                         List<Object> obs = form.search();
+                        String string = "";
                         for (Object ob : obs) {
-                            System.out.println(ob);
+                            if (!string.equals("")) string += "\n";
+                            string += ob;
                         }
-                        //System.out.println("Ei implementoitu");
-                        //Object[] tulokset = form.search();
-                        //TODO: tulosta tulokset ja anna käyttäjän valita yksi tuloksista.
-                        //printMenu(entityOperations);
+                        System.out.println(string);
                         break;                        
                 }
                 
