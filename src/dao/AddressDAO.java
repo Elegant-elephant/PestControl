@@ -19,9 +19,9 @@ public class AddressDAO extends DAO {
         super(em);
     }
     
-    public List<Object[]> getAddressList(){
-        Query q = em.createQuery("SELECT a.postalCode, a.streetAddress FROM Address a");
-        List<Object[]> list = q.getResultList();
+    public List<Address> getAddressList(){
+        Query q = em.createQuery("SELECT a FROM Address a");
+        List<Address> list = q.getResultList();
         return list;
     }
     

@@ -19,9 +19,9 @@ public class CustomerDAO extends DAO {
         super(em);
     }
     
-    public List<Object[]> getCustomerList(){
-        Query q = em.createQuery("SELECT c.id, c.lastname, c.firstname FROM Customer c");
-        List<Object[]> list = q.getResultList();
+    public List<Customer> getCustomerList(){
+        Query q = em.createQuery("SELECT c FROM Customer c");
+        List<Customer> list = q.getResultList();
         return list;
     }
     
