@@ -32,4 +32,8 @@ public class AddressDAO extends DAO {
     public void addAddress(Address address){
         em.persist(address);
     }
+    
+    public void delete(Address address){
+        em.remove(address);
+    }
 }

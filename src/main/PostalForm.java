@@ -20,17 +20,29 @@ public class PostalForm implements FormIF<Postal> {
     private Scanner lukija;
 
     public PostalForm(EntityManager em) {
+        lukija = new Scanner(System.in);
         postalDAO = new PostalDAO(em);
     }    
     
     @Override
     public Postal create(){
-        return null;
+        System.out.println("Anna postikoodi");
+        String postalCode = lukija.nextLine();
+        Postal postal = postalDAO.getPostalByPostalcode(postalCode);
+        if (postal == null) {
+            postal = new Postal();
+            postal.setPostalCode(postalCode);
+            System.out.println("Anna postitoimipaikka");
+            String postitoimipaikka = lukija.nextLine();
+            postal.setPostRegion(postitoimipaikka);
+            postalDAO.addPostal(postal);
+        }
+        return postal;
     }
     
     @Override
     public void delete(Postal postal){
-        
+        postalDAO.delete(postal);
     }
     
     @Override

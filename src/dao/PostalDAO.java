@@ -24,4 +24,8 @@ public class PostalDAO extends DAO{
     public void addPostal(Postal postal){
         em.persist(postal);
     }
+    
+    public void delete(Postal postal){
+        em.remove(postal);
+    }
 }
