@@ -58,7 +58,9 @@ public class Main2 {
                 int operation = printMenu(tableOperations);
                 switch(operation){
                     case 1: //Luo uusi
+                        em.getTransaction().begin();
                         form.create();
+                        em.getTransaction().commit();
                         break;
                     case 2: //Etsi
                         System.out.println("Ei implementoitu");
