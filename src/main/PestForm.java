@@ -52,7 +52,7 @@ public class PestForm implements FormIF<Pest> {
 
     @Override
     public List<Pest> search() {
-        return new ArrayList<>();
+        return dao.getPestList();
     }
 
     @Override
