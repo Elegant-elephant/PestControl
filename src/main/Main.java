@@ -96,7 +96,7 @@ public class Main {
     //Tulostaa olemassa olevat asiakkaat ja antaa käyttäjän valita yhden. Palautaa null jos input tyhjä.
     static Customer selectCustomer(){
         String input = "";
-        List<Object[]> customerList = customerDAO.getCustomerList();
+        List<Customer> customerList = customerDAO.getCustomerList();
         if(customerList.size() == 0){
             System.out.println("Asiakkaita ei ole.");
             return null;
@@ -104,8 +104,8 @@ public class Main {
         int id;
         Customer c;
         
-        for(Object[] row: customerList){
-            System.out.println(row[0]+": "+row[1]+" "+row[2]);
+        for(Customer customer: customerList){
+            System.out.println(customer);
         }
         do{
             System.out.println("Anna lisättävän asiakkaan id: ");
