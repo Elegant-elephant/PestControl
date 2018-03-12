@@ -71,6 +71,7 @@ public class Main2 {
                     case 2: //Etsi
                         int index = 0;
                         List<Object> obs = form.search();
+                        String string = "";
                         System.out.println("================= Tulokset =================");
                         if (obs.size() == 0) break;
                         index = printMenu(obs.toArray());
