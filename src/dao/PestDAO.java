@@ -33,11 +33,15 @@ public class PestDAO extends DAO {
     public List<Pest> getPestByName(String name) {
         String lause = "SELECT p FROM Pest p WHERE p.name = :name";
         Query kysely = em.createQuery(lause);
-        kysely.setParameter("name", name);
+        kysely.setParameter("name", name);        
         return kysely.getResultList();
     }
     
     public void addPest(Pest pest){
         em.persist(pest);
+    }
+    
+    public void deletePest(Pest pest) {
+        em.remove(pest);
     }
 }
