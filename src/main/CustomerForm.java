@@ -58,7 +58,36 @@ public class CustomerForm implements FormIF<Customer> {
     
     @Override
     public Customer update(Customer customer){
-        
+        String[] fields = {"Etunimi", "Sukunimi", "Laskutusosoite"};
+        String input = "";
+        int valinta = 0;
+        do {
+            for (int i = 0; i < fields.length; i++) {
+                System.out.println((i+1) + ". " + fields[i]);
+            }
+            try {
+                input = lukija.nextLine();
+                valinta = Integer.parseInt(input);
+            }catch(Exception e){
+                //Ei numero syöte
+            }
+            
+            switch(valinta){
+                case 1: //Etunimi
+                    System.out.println("Anna uusi etunimi");
+                    customer.setFirstname(lukija.nextLine());
+                    break;
+                case 2: //Sukunimi
+                    System.out.println("Anna uusi sukunimi");
+                    customer.setLastname(lukija.nextLine());
+                    break;
+                case 3: //Laskutusosoite
+                    addressForm.update(customer.getBillingAddress());
+                    break;
+            }
+            
+        } while(valinta < 1 || valinta > fields.length);
+        customerDAO.addCustomer(customer);
         return customer;
     }
 }
