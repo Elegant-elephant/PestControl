@@ -53,8 +53,7 @@ public class CustomerForm implements FormIF<Customer> {
     
     @Override
     public List<Customer> search(){
-        
-        return null;
+        return customerDAO.getCustomerList();
     }
     
     @Override
