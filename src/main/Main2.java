@@ -5,6 +5,7 @@
  */
 package main;
 
+import java.util.List;
 import java.util.Scanner;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -25,6 +26,7 @@ public class Main2 {
     static CustomerVisitForm customerVisitForm = new CustomerVisitForm(em);
     static PostalForm postalForm = new PostalForm(em);
     static AddressForm addressForm = new AddressForm(em);
+    static PestForm pestForm = new PestForm(em);
     
     public static void main(String[] args) {
         String[] mainMenu = {"Asiakas", "Asiakaskäynti", "Osoite", "Tuholainen", "Lopeta"};
@@ -48,7 +50,7 @@ public class Main2 {
                     form = addressForm;
                     break;
                 case 4: //Tuholainen
-                    //form = pestForm;
+                    form = pestForm;
                     break;
                 case 5: //Lopeta
                     break;
@@ -59,15 +61,23 @@ public class Main2 {
                 switch(operation){
                     case 1: //Luo uusi
                         em.getTransaction().begin();
-                        form.create();
-                        em.getTransaction().commit();
+                        Object o = form.create();
+                        if (o != null) {
+                            em.getTransaction().commit();
+                        } else {
+                            em.getTransaction().rollback();
+                        }
                         break;
                     case 2: //Etsi
-                        System.out.println("Ei implementoitu");
+                        List<Object> obs = form.search();
+                        for (Object ob : obs) {
+                            System.out.println(ob);
+                        }
+                        //System.out.println("Ei implementoitu");
                         //Object[] tulokset = form.search();
                         //TODO: tulosta tulokset ja anna käyttäjän valita yksi tuloksista.
                         //printMenu(entityOperations);
-                        break;
+                        break;                        
                 }
                 
                 
