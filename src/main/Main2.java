@@ -58,7 +58,7 @@ public class Main2 {
             
             if(form != null){
                 int operation = printMenu(tableOperations);
-                switch(operation){
+                switch(operation){ //Table operations
                     case 1: //Luo uusi
                         em.getTransaction().begin();
                         Object o = form.create();
@@ -69,14 +69,28 @@ public class Main2 {
                         }
                         break;
                     case 2: //Etsi
+                        int index = 0;
                         List<Object> obs = form.search();
                         System.out.println("================= Tulokset =================");
-                        for (Object ob : obs) {
-                            System.out.println(ob);
-                        }
+                        if (obs.size() == 0) break;
+                        index = printMenu(obs.toArray());
                         System.out.println("============================================");
-                        //TODO: tulosta tulokset ja anna käyttäjän valita yksi tuloksista.
-                        //printMenu(entityOperations);
+                        Object entity = obs.get(index-1);
+                        operation = printMenu(entityOperations);
+                        switch(operation){ //Entity operations
+                            case 1://Muokkaa
+                                System.out.println("Muokataan " + entity);
+                                em.getTransaction().begin();
+                                form.update(entity);
+                                em.getTransaction().commit();
+                                break;
+                            case 2://Poista
+                                System.out.println("Poistetaan " + entity);
+                                em.getTransaction().begin();
+                                form.delete(entity);
+                                em.getTransaction().commit();
+                                break;
+                        }
                         break;                        
                 }
                 
@@ -90,7 +104,9 @@ public class Main2 {
         emf.close();
     }
     
-    static int printMenu(String[] menu){
+    static int printMenu(Object[] menu){
+        if(menu.length == 0)
+            return -1;
         String input = "";
         int valinta = 0;
         do {
