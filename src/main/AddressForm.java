@@ -6,6 +6,7 @@
 package main;
 
 import dao.AddressDAO;
+import java.util.List;
 import orm.Address;
 import java.util.Scanner;
 import javax.persistence.EntityManager;
@@ -13,7 +14,7 @@ import javax.persistence.EntityManager;
  *
  * @author laurijko
  */
-public class AddressForm {
+public class AddressForm implements FormIF<Address>{
     private Scanner lukija;
     private AddressDAO addressDAO;
     
@@ -22,21 +23,25 @@ public class AddressForm {
         lukija = new Scanner(System.in);
     }
     
-    protected Address createAddress(){
+    @Override
+    public Address create(){
+        return null;
+    }
+    
+    
+    @Override
+    public void delete(Address address){
+        
+    }
+    
+    @Override
+    public List<Address> search(){
         
         return null;
     }
     
-    protected void deleteAddress(Address address){
-        
-    }
-    
-    protected Address[] searchAddress(){
-        
-        return null;
-    }
-    
-    protected Address updateAddress(Address address){
+    @Override
+    public Address update(Address address){
         
         return address;
     }

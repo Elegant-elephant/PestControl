@@ -7,13 +7,14 @@ package main;
 
 import orm.CustomerVisit;
 import dao.CustomerVisitDAO;
+import java.util.List;
 import javax.persistence.EntityManager;
 import java.util.Scanner;
 /**
  *
  * @author laurijko
  */
-public class CustomerVisitForm {
+public class CustomerVisitForm implements FormIF<CustomerVisit> {
     private CustomerVisitDAO customerVisistDAO;
     private Scanner lukija;
 
@@ -22,21 +23,25 @@ public class CustomerVisitForm {
         lukija = new Scanner(System.in);
     }
     
-    protected CustomerVisit createCustomerVisit(){
+    @Override
+    public CustomerVisit create(){
         
         return null;
     }
     
-    protected void deleteCustomerVisit(CustomerVisit customerVisit){
+    @Override
+    public void delete(CustomerVisit customerVisit){
         
     }
     
-    protected CustomerVisit[] searchCustomerVisit(){
+    @Override
+    public List<CustomerVisit> search(){
         
         return null;
     }
     
-    protected CustomerVisit updateCustomerVisit(CustomerVisit customerVisit){
+    @Override
+    public CustomerVisit update(CustomerVisit customerVisit){
         
         return customerVisit;
     }

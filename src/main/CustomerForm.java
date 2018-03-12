@@ -7,6 +7,7 @@ package main;
 
 import java.util.Scanner;
 import dao.CustomerDAO;
+import java.util.List;
 import orm.Customer;
 import javax.persistence.EntityManager;
 
@@ -14,7 +15,7 @@ import javax.persistence.EntityManager;
  *
  * @author laurijko
  */
-public class CustomerForm {
+public class CustomerForm implements FormIF<Customer> {
     
     private Scanner lukija;
     private CustomerDAO customerDAO;
@@ -24,21 +25,25 @@ public class CustomerForm {
         lukija = new Scanner(System.in);
     }
     
-    protected Customer createCustomer(){
+    @Override
+    public Customer create(){
         
         return null;
     }
     
-    protected void deleteCustomer(Customer customer){
+    @Override
+    public void delete(Customer customer){
         
     }
     
-    protected Customer[] searchCustomer(){
+    @Override
+    public List<Customer> search(){
         
         return null;
     }
     
-    protected Customer updateCustomer(Customer customer){
+    @Override
+    public Customer update(Customer customer){
         
         return customer;
     }

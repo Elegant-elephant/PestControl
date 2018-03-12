@@ -7,13 +7,14 @@ package main;
 
 import orm.Postal;
 import dao.PostalDAO;
+import java.util.List;
 import java.util.Scanner;
 import javax.persistence.EntityManager;
 /**
  *
  * @author laurijko
  */
-public class PostalForm {
+public class PostalForm implements FormIF<Postal> {
     
     private PostalDAO postalDAO;
     private Scanner lukija;
@@ -22,19 +23,23 @@ public class PostalForm {
         postalDAO = new PostalDAO(em);
     }    
     
-    protected Postal createPostal(){
+    @Override
+    public Postal create(){
         return null;
     }
     
-    protected void deletePostal(Postal postal){
+    @Override
+    public void delete(Postal postal){
         
     }
     
-    protected Postal[] searchPostal(String[] params){
+    @Override
+    public List<Postal> search(){
         return null;
     }
     
-    protected Postal updatePostal(Postal postal){
+    @Override
+    public Postal update(Postal postal){
         return postal;
     }
 }
