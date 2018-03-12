@@ -22,6 +22,8 @@ public class Main {
     static CustomerVisitDAO customerVisitDAO = new CustomerVisitDAO(em);
     static PostalDAO postalDAO = new PostalDAO(em);
     static AddressDAO addressDAO = new AddressDAO(em);
+    static PestDAO pestDAO = new PestDAO(em);
+    
     public static void main(String[] args) {
         
         List<String> valinnat = Arrays.asList("Lisää asiakaskäynti", "Poista asiakaskäynti", "Lopeta");
@@ -81,11 +83,10 @@ public class Main {
             // TODO: Lisää tarkistus että ajan syöttö onnistuu
             Date date = prepareDate("Syötä aika");
             customerVisit.setDatetime(date);
-            customerVisit.setPests(new HashSet<Pest>());
+            customerVisit.setPests(preparePestSet());
             customerVisitDAO.addCustomerVisit(customerVisit);
-            
-            
             em.getTransaction().commit();
+            System.out.println("Käynti luotu");
         } else {
             em.getTransaction().rollback();
         }
@@ -224,5 +225,95 @@ public class Main {
         }while(!input.equals(""));
         em.getTransaction().rollback();
 
+    }
+    
+    static Set<Pest> preparePestSet() {
+        Set<Pest> pestsToAdd = new HashSet<>();
+        List<String> options = Arrays.asList("Valitse listaan", "Luo uusi tuholainen", "Viimeistele lista");
+        int selection = -1;
+        
+        do {
+            if (pestsToAdd.size() < 1) {
+                System.out.println("Et ole vielä valinnut yhtään tuholaista.");
+            } else {
+                System.out.println("Id\tName");
+                for (Pest pest : pestsToAdd) {
+                    System.out.println(pest.getPestId() + "\t" + pest.getName());
+                }
+            }
+            for (int i = 0; i < options.size(); i++) {
+                System.out.println((i + 1) + ". " + options.get(i));
+            }
+            
+            selection = lukija.nextInt();
+            lukija.nextLine();
+            switch (selection) {
+                case 1:
+                    List<Pest> pests = pestDAO.getPestList();
+                    Pest pest = selectPest(pests, "Valitse tuholainen numerolla", "Virheellinen numero. Yritä uudelleen");
+                    if (pest != null) {
+                        pestsToAdd.add(pest);
+                    }
+                    break;
+                case 2:
+                    pestsToAdd.add(preparePest());
+                    break;   
+            }
+        } while (selection > 0 && selection < (options.size()));
+        
+        return pestsToAdd;
+    }
+    
+    static Pest preparePest() {
+        System.out.println("Anna nimi:");
+        String name = lukija.nextLine();
+
+        List<Pest> pests = pestDAO.getPestByName(name);
+        
+        Pest pest = null;
+        if (pests.size() == 1) {
+            return pests.get(pests.size() - 1);
+        } else if (pests.size() > 1) {
+            pest = selectPest(pests, "Valitse tuholainen. Syötä numerolla.", "Virheellinen numerosyöte. Yritä uudelleen");
+        } else {
+            pest = newPest(name);
+        }
+        
+        return pest;
+    }
+    
+    static Pest newPest(String name) {
+        Pest pest = new Pest();
+        pest.setName(name);
+        System.out.println("Syötä kuvaus tai jätä tyhjäksi:");
+        String description = lukija.nextLine();
+        if (!description.equals("")) {
+            pest.setDescription(description);
+        }
+        pestDAO.addPest(pest);
+        System.out.println("Luotu: " + pest);
+        return pest;
+    }
+    
+    static Pest selectPest(List<Pest> pests, String message, String invalidInputMessage) {
+        int selection = -1;
+        boolean invalidInput = true;
+        do {
+            System.out.println("Selection\tId\tName");
+            for (int i = 0; i < pests.size(); i++) {
+                Pest pest = pests.get(i);
+                System.out.println((i+1) + "\t\t" + pest.getPestId() + "\t" + pest.getName());
+            }
+            System.out.println(message);
+            selection = lukija.nextInt();
+            lukija.nextLine();
+            if (selection > 0 && selection < (pests.size() + 1)) {
+                invalidInput = false;
+            } else {
+                System.out.println(invalidInputMessage);
+            }
+        } while (invalidInput);
+        
+        return pests.get(selection - 1);
     }
 }
