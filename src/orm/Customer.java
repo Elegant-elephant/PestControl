@@ -56,4 +56,9 @@ public class Customer {
         this.billingAddress = address;
     }
     
+    @Override
+    public String toString() {
+        return id + ", " + firstname + ", " + lastname + ", " + "Billing address: {" + billingAddress + "}";
+    }
+    
 }

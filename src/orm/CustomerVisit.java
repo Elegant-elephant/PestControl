@@ -78,4 +78,13 @@ public class CustomerVisit {
         this.pests = pests;
     }
     
+    @Override
+    public String toString() {
+        String pestString = "";
+        for (Pest pest : pests) {
+            if (!pestString.equals("")) pestString += ", ";
+            pestString += "{" + pest + "}";
+        }
+        return id + ", " + datetime + ", " + "Customer: {" + customer + "}, Address: {" + address + "}, Pests: [" + pestString + "]";
+    }
 }

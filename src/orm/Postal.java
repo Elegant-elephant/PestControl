@@ -30,4 +30,9 @@ public class Postal {
         this.postRegion = postRegion;
     }
     
+    @Override
+    public String toString() {
+        return postRegion + ", " + postalCode;
+    }
+    
 }
