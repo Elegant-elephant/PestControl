@@ -26,8 +26,33 @@ public class PostalForm implements FormIF<Postal> {
     
     @Override
     public Postal create(){
-        System.out.println("Anna postikoodi");
-        String postalCode = lukija.nextLine();
+        String postalCode = "";
+        boolean valid = false;
+        
+        do {
+            System.out.println("Anna postikoodi (5 numeroinen)");
+            postalCode = lukija.nextLine();
+            if (postalCode.length() != 5) {
+                System.out.println("Syöte ei ole 5 merkkinen. Yritä uudelleen.");
+            } else {
+                int index = 0;
+                boolean charsValid = true;
+                do {
+                    try {
+                        Integer.parseInt("" + postalCode.charAt(index));
+                    } catch (Exception e) {
+                        charsValid = false;
+                        break;
+                    }
+                    index++;
+                } while (index > postalCode.length());
+                if (charsValid)
+                    valid = true;
+                else
+                    System.out.println((index + 1) + ". merkki (" + postalCode.charAt(index) + ") ei ole numero. Yritä uudelleen");
+            }
+        } while (!valid);
+        
         Postal postal = postalDAO.getPostalByPostalcode(postalCode);
         if (postal == null) {
             postal = new Postal();
