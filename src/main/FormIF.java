@@ -5,6 +5,8 @@
  */
 package main;
 
+import java.util.List;
+
 /**
  *
  * @author laurijko
@@ -12,6 +14,6 @@ package main;
 public interface FormIF<T> {
     abstract T create();
     abstract void delete(T entity);
-    abstract T[] search();
+    abstract List<T> search();
     abstract T update(T entity);
 }
