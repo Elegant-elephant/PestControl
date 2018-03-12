@@ -71,11 +71,13 @@ public class Main2 {
                     case 2: //Etsi
                         List<Object> obs = form.search();
                         String string = "";
+                        System.out.println("================= Tulokset =================");
                         for (Object ob : obs) {
                             if (!string.equals("")) string += "\n";
                             string += ob;
                         }
                         System.out.println(string);
+                        System.out.println("============================================");
                         break;                        
                 }
                 
