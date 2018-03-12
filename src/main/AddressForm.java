@@ -49,8 +49,7 @@ public class AddressForm implements FormIF<Address>{
     
     @Override
     public List<Address> search(){
-        
-        return null;
+        return addressDAO.getAddressList();
     }
     
     @Override
