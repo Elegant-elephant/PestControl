@@ -30,7 +30,7 @@ public class Main {
     
     public static void main(String[] args) {
         String[] mainMenu = {"Asiakas", "Asiakaskäynti", "Osoite", "Tuholainen", "Lopeta"};
-        String[] tableOperations = {"Luo uusi", "Etsi", "Peruuta"};
+        String[] tableOperations = {"Luo uusi", "Listaa", "Peruuta"};
         String[] entityOperations = {"Muokkaa", "Poista", "Peruuta"};
         
         int valinta = 0;
