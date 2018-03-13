@@ -58,7 +58,7 @@ public class CustomerForm implements FormIF<Customer> {
     
     @Override
     public Customer update(Customer customer){
-        String[] fields = {"Etunimi", "Sukunimi", "Laskutusosoite"};
+        String[] fields = {"Etunimi", "Sukunimi", "Laskutusosoite", "Peruuta"};
         String input = "";
         int valinta = 0;
         do {
@@ -84,6 +84,8 @@ public class CustomerForm implements FormIF<Customer> {
                 case 3: //Laskutusosoite
                     customer.setBillingAddress(addressForm.create());
                     break;
+                case 4:
+                    return null;
             }
             
         } while(valinta < 1 || valinta > fields.length);
