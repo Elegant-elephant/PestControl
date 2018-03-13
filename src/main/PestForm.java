@@ -9,6 +9,7 @@ import dao.PestDAO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import javax.persistence.EntityManager;
 import orm.Pest;
 
@@ -57,7 +58,15 @@ public class PestForm implements FormIF<Pest> {
 
     @Override
     public Pest update(Pest pest) {
+        System.out.println("Ei toteutusta vielä");
+        // TODO: Add pest editing menu
         return pest;
+    }
+    
+    public Set<Pest> update(Set<Pest> pests) {
+        System.out.println("Ei toteutusta vielä");
+        // TODO: Add pest set editing menu
+        return pests;
     }
     
 }
