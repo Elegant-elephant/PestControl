@@ -55,7 +55,7 @@ public class AddressForm implements FormIF<Address>{
     
     @Override
     public Address update(Address address){
-        String[] fields = {"Osoite", "Postinumero"};
+        String[] fields = {"Osoite", "Postinumero", "Peruuta"};
         String input = "";
         int valinta = 0;
         do {
@@ -78,6 +78,8 @@ public class AddressForm implements FormIF<Address>{
                 case 2: //Postinumero
                     postalForm.update(address.getPostalCode());
                     break;
+                case 3:
+                    return null;
             }
             
         } while(valinta < 1 || valinta > fields.length);
