@@ -75,6 +75,11 @@ CREATE TABLE IF NOT EXISTS `CustomerVisitPest` (
   CONSTRAINT `Relationship_ibfk_2` FOREIGN KEY (`PestId`) REFERENCES `Pest` (`PestId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+/* TODO:
+Add indexing for Address.StreetAddress
+Add onDelete and onDelete rules for tables
+*/
+
 -- Tietojen vientiä ei oltu valittu.
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
