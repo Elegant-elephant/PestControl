@@ -1,5 +1,6 @@
 package orm;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -17,7 +18,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "CustomerVisit")
-public class CustomerVisit {
+public class CustomerVisit implements Serializable {
     private int id;
     private Date datetime;
     private Customer customer;
