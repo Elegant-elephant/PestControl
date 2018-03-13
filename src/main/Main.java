@@ -90,8 +90,12 @@ public class Main {
                             case 1://Muokkaa
                                 System.out.println("Muokataan " + entity);
                                 em.getTransaction().begin();
-                                form.update(entity);
-                                em.getTransaction().commit();
+                                Object ob = form.update(entity);
+                                if (ob != null) {
+                                    em.getTransaction().commit();
+                                } else {
+                                    em.getTransaction().rollback();
+                                }
                                 break;
                             case 2://Poista
                                 System.out.println("Poistetaan " + entity);
