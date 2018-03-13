@@ -8,6 +8,7 @@ package dao;
 import java.util.List;
 import javax.persistence.*;
 import orm.Address;
+import orm.Postal;
 
 /**
  *
@@ -25,8 +26,21 @@ public class AddressDAO extends DAO {
         return list;
     }
     
-    public Address getAddressByStreetAddress(String streetAddress){
-        return em.find(Address.class, streetAddress);
+    public List<Address> getAddressesByStreetAddress(String streetAddress){
+        String s = "SELECT a FROM Address a WHERE a.streetAddress = :sa";
+        Query q = em.createQuery(s);
+        q.setParameter("sa", streetAddress);
+        return q.getResultList();
+    }
+    
+    public Address getAddressByStreetAddressAndPostalCode(String sa, Postal pc) {
+        String s = "SELECT a from Address a WHERE a.streetAddress = :sa AND a.postalCode = :pc";
+        Query q = em.createQuery(s);
+        q.setParameter("sa", sa);
+        q.setParameter("pc", pc);
+        List<Address> adds = q.getResultList();
+        if (adds.isEmpty()) return null;
+        return adds.get(0);
     }
     
     public void addAddress(Address address){

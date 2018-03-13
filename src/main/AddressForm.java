@@ -21,20 +21,21 @@ public class AddressForm implements FormIF<Address>{
     private PostalForm postalForm;
     
     public AddressForm(EntityManager em){
-        this.addressDAO = new AddressDAO(em);
+        addressDAO = new AddressDAO(em);
         lukija = new Scanner(System.in);
         postalForm = new PostalForm(em);
     }
     
     @Override
-    public Address create(){
+    public Address create() {
         System.out.println("Anna osoite");
-        String input = lukija.nextLine();
-        Address address = addressDAO.getAddressByStreetAddress(input);
+        String streetAddress = lukija.nextLine();
+        Postal postal = postalForm.create();
+        Address address = addressDAO.getAddressByStreetAddressAndPostalCode(streetAddress, postal);
+        
         if (address == null) {
             address = new Address();
-            address.setStreetAddress(input);
-            Postal postal = postalForm.create();
+            address.setStreetAddress(streetAddress);
             address.setPostalCode(postal);
             addressDAO.addAddress(address);
         }
@@ -54,7 +55,33 @@ public class AddressForm implements FormIF<Address>{
     
     @Override
     public Address update(Address address){
-        
+        String[] fields = {"Osoite", "Postinumero"};
+        String input = "";
+        int valinta = 0;
+        do {
+            for (int i = 0; i < fields.length; i++) {
+                System.out.println((i+1) + ". " + fields[i]);
+            }
+            try {
+                input = lukija.nextLine();
+                valinta = Integer.parseInt(input);
+            }catch(Exception e){
+                //Ei numero syöte
+            }
+            
+            switch(valinta){
+                case 1: //Osoite
+                    System.out.println("Anna osoite");
+                    address.setStreetAddress(lukija.nextLine());
+                    // TODO: Katso onko tietokannassa vastaavaa tietuetta ja muuta tähän viittaavat tietueet viittaamaan olemassa olevaa addressia.
+                    break;
+                case 2: //Postinumero
+                    postalForm.update(address.getPostalCode());
+                    break;
+            }
+            
+        } while(valinta < 1 || valinta > fields.length);
+        addressDAO.addAddress(address);
         return address;
     }
 }

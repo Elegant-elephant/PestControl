@@ -3,6 +3,7 @@ package orm;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -11,10 +12,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Address")
 public class Address {
+    private int id;
     private String streetAddress;
     private Postal postalCode;
     
     @Id
+    @GeneratedValue
+    @Column(name = "AddressId")
+    public int getId() {
+        return id;
+    }
+    
     @Column(name = "StreetAddress")
     public String getStreetAddress() {
         return streetAddress;
@@ -24,6 +32,10 @@ public class Address {
     @JoinColumn(name = "PostalCode")
     public Postal getPostalCode() {
         return postalCode;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setStreetAddress(String streetAddress) {
@@ -36,6 +48,6 @@ public class Address {
     
     @Override
     public String toString() {
-        return streetAddress + ", " + "Postal: {" + postalCode + "}";
+        return id + ", " + streetAddress + ", " + "Postal: {" + postalCode + "}";
     }
 }

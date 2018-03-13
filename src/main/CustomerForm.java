@@ -82,7 +82,7 @@ public class CustomerForm implements FormIF<Customer> {
                     customer.setLastname(lukija.nextLine());
                     break;
                 case 3: //Laskutusosoite
-                    addressForm.update(customer.getBillingAddress());
+                    customer.setBillingAddress(addressForm.create());
                     break;
             }
             

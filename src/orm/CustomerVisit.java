@@ -38,13 +38,13 @@ public class CustomerVisit {
     }
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "CustomerId")
+    @JoinColumn(name = "Customer")
     public Customer getCustomer() {
         return customer;
     }
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "StreetAddress")
+    @JoinColumn(name = "Address")
     public Address getAddress() {
         return address;
     }

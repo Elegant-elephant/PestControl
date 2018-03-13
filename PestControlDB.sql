@@ -12,9 +12,10 @@ USE `PestControl`;
 
 -- Dumping structure for taulu PestControl.Address
 CREATE TABLE IF NOT EXISTS `Address` (
+  `AddressId` int(11) NOT NULL AUTO_INCREMENT,
   `StreetAddress` varchar(40) NOT NULL,
   `PostalCode` varchar(5) NOT NULL,
-  PRIMARY KEY (`StreetAddress`),
+  PRIMARY KEY (`AddressId`),
   KEY `PostalCode` (`PostalCode`),
   CONSTRAINT `Address_ibfk_1` FOREIGN KEY (`PostalCode`) REFERENCES `Postal` (`PostalCode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -25,10 +26,10 @@ CREATE TABLE IF NOT EXISTS `Customer` (
   `CustomerId` int(11) NOT NULL AUTO_INCREMENT,
   `Firstname` varchar(20) NOT NULL,
   `Lastname` varchar(20) NOT NULL,
-  `BillingAddress` varchar(40) NOT NULL,
+  `BillingAddress` int(11) NOT NULL,
   PRIMARY KEY (`CustomerId`),
   KEY `BillingAddress` (`BillingAddress`),
-  CONSTRAINT `Customer_ibfk_1` FOREIGN KEY (`BillingAddress`) REFERENCES `Address` (`StreetAddress`)
+  CONSTRAINT `Customer_ibfk_1` FOREIGN KEY (`BillingAddress`) REFERENCES `Address` (`AddressId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Tietojen vientiä ei oltu valittu.
@@ -36,13 +37,13 @@ CREATE TABLE IF NOT EXISTS `Customer` (
 CREATE TABLE IF NOT EXISTS `CustomerVisit` (
   `CustomerVisitId` int(11) NOT NULL AUTO_INCREMENT,
   `Datetime` datetime NOT NULL,
-  `CustomerId` int(11) NOT NULL,
-  `StreetAddress` varchar(40) NOT NULL,
+  `Customer` int(11) NOT NULL,
+  `Address` int(11) NOT NULL,
   PRIMARY KEY (`CustomerVisitId`),
-  KEY `CustomerId` (`CustomerId`),
-  KEY `StreetAddress` (`StreetAddress`),
-  CONSTRAINT `CustomerVisit_ibfk_1` FOREIGN KEY (`CustomerId`) REFERENCES `Customer` (`CustomerId`),
-  CONSTRAINT `CustomerVisit_ibfk_2` FOREIGN KEY (`StreetAddress`) REFERENCES `Address` (`StreetAddress`)
+  KEY `Customer` (`Customer`),
+  KEY `Address` (`Address`),
+  CONSTRAINT `CustomerVisit_ibfk_1` FOREIGN KEY (`Customer`) REFERENCES `Customer` (`CustomerId`),
+  CONSTRAINT `CustomerVisit_ibfk_2` FOREIGN KEY (`Address`) REFERENCES `Address` (`AddressId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Tietojen vientiä ei oltu valittu.
