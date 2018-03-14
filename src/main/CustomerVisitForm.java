@@ -40,6 +40,7 @@ public class CustomerVisitForm implements FormIF<CustomerVisit> {
     public CustomerVisit create(){
         CustomerVisit cv = new CustomerVisit();
         
+        //TODO: Kysy kätetäänkö olemassa olevaa asiakasta vai luodaanko uusi.
         Customer c = cForm.create();
         if (c == null) return null;
         cv.setCustomer(c);
