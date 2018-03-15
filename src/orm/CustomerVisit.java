@@ -2,6 +2,7 @@ package orm;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,6 +25,10 @@ public class CustomerVisit implements Serializable {
     private Customer customer;
     private Address address;
     private Set<Pest> pests;
+    
+    public CustomerVisit() {
+        pests = new HashSet<>();
+    }
     
     @Id
     @GeneratedValue
