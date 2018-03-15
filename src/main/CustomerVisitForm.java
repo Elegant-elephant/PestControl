@@ -40,10 +40,28 @@ public class CustomerVisitForm implements FormIF<CustomerVisit> {
     public CustomerVisit create(){
         CustomerVisit cv = new CustomerVisit();
         
-        //TODO: Kysy kätetäänkö olemassa olevaa asiakasta vai luodaanko uusi.
-        Customer c = cForm.create();
-        if (c == null) return null;
-        cv.setCustomer(c);
+        String[] options = {"Valitse olemassa oleva asiakas", "Luo uusi asiakas", "Peruuta"};
+        int selection = Menu.printSelectMenu(options);
+        
+        switch (selection) {
+            case 1:
+                List<Customer> customers = cForm.getList();
+                String[] selectOptions = new String[customers.size() + 1];
+                System.out.println(customers.size());
+                for (int i = 0; i < customers.size(); i++) {
+                    selectOptions[i] = customers.get(i).toString();
+                }
+                selectOptions[selectOptions.length - 1] = "Peruuta";
+                selection = Menu.printSelectMenu(selectOptions);
+                if (selection < (selectOptions.length - 1)) cv.setCustomer(customers.get(selection - 1));
+                else return null;
+                break;
+            case 2:
+                Customer c = cForm.create();
+                if (c == null) return null;
+                cv.setCustomer(c);
+                break;
+        }
         
         Address a = aForm.create();
         if (a == null) return null;
@@ -64,46 +82,32 @@ public class CustomerVisitForm implements FormIF<CustomerVisit> {
     }
     
     @Override
-    public List<CustomerVisit> search(){
+    public List<CustomerVisit> getList(){
         return cvDAO.getVisits();
     }
     
     @Override
     public CustomerVisit update(CustomerVisit customerVisit){
-        String[] fields = {"Päiväys", "Asiakas", "Osoite", "Tuholaiset", "Peruuta"};
-        String input = "";
-        int valinta = 0;
-        do {
-            for (int i = 0; i < fields.length; i++) {
-                System.out.println((i+1) + ". " + fields[i]);
-            }
-            try {
-                input = lukija.nextLine();
-                valinta = Integer.parseInt(input);
-            }catch(Exception e){
-                //Ei numero syöte
-            }
-            
-            switch(valinta){
-                case 1: //Etunimi
-                    System.out.println("Edellinen päiväys: " + customerVisit.getDatetime());
-                    customerVisit.setDatetime(dForm.create());
-                case 2: //Sukunimi
-                    System.out.println("Edellinen asiakas: " + customerVisit.getCustomer());
-                    customerVisit.setCustomer(cForm.create());
-                    break;
-                case 3: //Laskutusosoite
-                    System.out.println("Edellinen osoite: " + customerVisit.getAddress());
-                    customerVisit.setAddress(aForm.create());
-                    break;
-                case 4:
-                    customerVisit.setPests(pForm.update(customerVisit.getPests()));
-                    break;
-                case 5:
-                    return null;
-            }
-            
-        } while(valinta < 1 || valinta > fields.length);
+        String[] options = {"Päiväys", "Asiakas", "Osoite", "Tuholaiset", "Peruuta"};
+        int selection = Menu.printSelectMenu(options);
+        switch(selection){
+            case 1: //Etunimi
+                System.out.println("Edellinen päiväys: " + customerVisit.getDatetime());
+                customerVisit.setDatetime(dForm.create());
+            case 2: //Sukunimi
+                System.out.println("Edellinen asiakas: " + customerVisit.getCustomer());
+                customerVisit.setCustomer(cForm.create());
+                break;
+            case 3: //Laskutusosoite
+                System.out.println("Edellinen osoite: " + customerVisit.getAddress());
+                customerVisit.setAddress(aForm.create());
+                break;
+            case 4:
+                customerVisit.setPests(pForm.update(customerVisit.getPests()));
+                break;
+            case 5:
+                return null;
+        }
         cvDAO.addCustomerVisit(customerVisit);
         return customerVisit;
     }
