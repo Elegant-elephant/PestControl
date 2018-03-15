@@ -71,7 +71,7 @@ public class PostalForm implements FormIF<Postal> {
     }
     
     @Override
-    public List<Postal> search(){
+    public List<Postal> getList(){
         System.out.println("Ei toteutusta vielä");
         // TODO: Return all postal list
         return null;

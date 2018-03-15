@@ -36,7 +36,7 @@ public class DateForm implements FormIF<Date> {
     public void delete(Date entity) {}
 
     @Override
-    public List<Date> search() {
+    public List<Date> getList() {
         System.out.println("Ei toteutusta vielä");
         // TODO: Return all dates from customer visits
         return new ArrayList<Date>();
