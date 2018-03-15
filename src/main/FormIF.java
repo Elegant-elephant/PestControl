@@ -14,6 +14,6 @@ import java.util.List;
 public interface FormIF<T> {
     abstract T create();
     abstract void delete(T entity);
-    abstract List<T> search();
+    abstract List<T> getList();
     abstract T update(T entity);
 }

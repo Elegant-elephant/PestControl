@@ -10,6 +10,7 @@ import java.util.Scanner;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import main.Menu;
 
 /**
  *
@@ -35,7 +36,7 @@ public class Main {
         
         int valinta = 0;
         do {
-            valinta = printMenu(mainMenu);
+            valinta = Menu.printSelectMenu(mainMenu);
             
             FormIF form = null;
             
@@ -57,7 +58,7 @@ public class Main {
             }
             
             if(form != null){
-                int operation = printMenu(tableOperations);
+                int operation = Menu.printSelectMenu(tableOperations);
                 switch(operation){ //Table operations
                     case 1: //Luo uusi
                         em.getTransaction().begin();
@@ -70,7 +71,7 @@ public class Main {
                         break;
                     case 2: //Etsi
                         int index = 0;
-                        List<Object> obs = form.search();
+                        List<Object> obs = form.getList();
                         String string = "";
                         
                         if (obs.size() == 0) break;
@@ -80,12 +81,12 @@ public class Main {
                         }
                         options[options.length - 1] = "Peruuta";
                         System.out.println("================= Tulokset =================");
-                        index = printMenu(options);
+                        index = Menu.printSelectMenu(options);
                         System.out.println("============================================");
                         if (index == options.length) break;
                         
                         Object entity = obs.get(index-1);
-                        operation = printMenu(entityOperations);
+                        operation = Menu.printSelectMenu(entityOperations);
                         switch(operation){ //Entity operations
                             case 1://Muokkaa
                                 System.out.println("Muokataan " + entity);
@@ -105,9 +106,7 @@ public class Main {
                                     em.getTransaction().commit();
                                 } catch (Exception e) {
                                     System.out.println("Ei voida poistaa");
-                                    em.getTransaction().rollback();
                                 }
-                                
                                 break;
                         }
                         break;                        
@@ -122,26 +121,4 @@ public class Main {
         em.close();
         emf.close();
     }
-    
-    static int printMenu(Object[] menu){
-        if(menu.length == 0)
-            return -1;
-        String input = "";
-        int valinta = 0;
-        do {
-            for (int i = 0; i < menu.length; i++) {
-                System.out.println((i+1) + ". " + menu[i]);
-            }
-            try {
-                input = lukija.nextLine();
-                valinta = Integer.parseInt(input);
-            }catch(Exception e){
-                //Ei numero syöte
-            }
-            
-        } while(valinta < 1 || valinta > menu.length);
-        return valinta;
-    }
-    
-    
 }
