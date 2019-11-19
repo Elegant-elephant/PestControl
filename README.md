@@ -1,4 +1,3 @@
 # PestControl
 Pest is the best!
-
-TODO: Add detailed description of the project
+This is a database exercise
